@@ -16,8 +16,10 @@ import statsmodels.api as sm
 
 df = pd.read_csv("data/Retail_Transaction_Dataset.csv")
 
+
 df["TransactionDate"] = pd.to_datetime(
-    df["TransactionDate"]
+    df["TransactionDate"],
+    format="mixed"
 )
 
 
@@ -33,7 +35,7 @@ print(
         [
             "Quantity",
             "Price",
-            "DiscountApplied",
+            "DiscountApplied(%)",
             "TotalAmount"
         ]
     ].describe().round(2)
@@ -46,7 +48,7 @@ print(
 # ============================================
 
 df["Discount_Group"] = pd.cut(
-    df["DiscountApplied"],
+    df["DiscountApplied(%)"],
     bins=[-0.01, 5, 10, 15, 20],
     labels=[
         "0-5%",
@@ -142,7 +144,7 @@ print("p-value:", round(chi_p_value, 3))
 
 X = df[
     [
-        "DiscountApplied",
+        "DiscountApplied(%)",
         "Price"
     ]
 ]
