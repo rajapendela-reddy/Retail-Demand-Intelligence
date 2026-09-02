@@ -1,86 +1,91 @@
-# Retail-Demand-Intelligence
-# SQL Analysis
+# Retail Demand Intelligence
 
-This folder contains the MySQL analysis used in the Retail Demand Intelligence project.
+### Growth • Customer Retention • Statistical Analysis • Demand Forecasting
 
-The SQL analysis covers data validation, business KPIs, growth, customer retention, customer behavior, and demand analysis.
+An end-to-end retail analytics project that combines **MySQL, Python, and Power BI** to analyze business growth, customer retention, statistical relationships, demand patterns, anomalies, and future demand.
 
-## Database
+---
 
-**Database:** `retail_demand_intelligence`
+## Business Problem
 
-**Main analytical table:** `retail_transactions`
+Retail businesses need to understand not only how much they sell, but also:
 
-The table contains 100,000 retail transactions covering approximately one year of transaction history.
+- What is driving revenue growth or decline?
+- Are customers returning after their first purchase?
+- Does discounting influence purchase quantity?
+- Are there meaningful differences between customer groups?
+- What demand patterns and seasonality exist?
+- Are there unusual demand spikes or drops?
+- What level of demand can be expected in the near future?
 
-## SQL Analysis
+This project analyzes historical retail transactions to answer these questions and translate the findings into actionable business recommendations.
 
-| File | Purpose |
+---
+
+# Project Objectives
+
+1. Measure revenue, transaction, customer, unit, and AOV growth.
+2. Analyze customer retention and repeat purchasing behavior.
+3. Statistically evaluate relationships between discounts, price, quantity, customer type, and category.
+4. Identify demand trends, weekly patterns, and anomalies.
+5. Compare multiple forecasting approaches using out-of-sample validation.
+6. Translate analytical findings into business and inventory planning recommendations.
+
+---
+
+# Dataset
+
+The project uses the **Retail Transaction Dataset** by Fahad Rehman from Kaggle.
+
+The dataset contains:
+
+- **100,000 transactions**
+- **95,215 unique customers**
+- **4 product categories**
+- **4 payment methods**
+- Approximately **one year of transaction history**
+- Transaction-level quantity, price, discount, and revenue data
+
+### Main Fields
+
+| Field | Description |
 |---|---|
-| `01_data_validation.sql` | Validates transaction volume, date coverage, uniqueness, missing values, and duplicates |
-| `02_core_kpis.sql` | Calculates revenue, transactions, units, customers, AOV, and purchase frequency |
-| `03_growth_analysis.sql` | Analyzes monthly revenue, transaction, customer, unit, and AOV growth |
-| `04_retention_analysis.sql` | Measures one-time vs repeat customers, purchase frequency, and time to second purchase |
-| `05_customer_analysis.sql` | Analyzes customer revenue, new vs returning transactions, and category-level repeat behavior |
-| `06_demand_analysis.sql` | Creates daily, weekly, and monthly demand summaries for time-series analysis |
+| CustomerID | Customer identifier |
+| ProductID | Product identifier |
+| Quantity | Units purchased |
+| Price | Unit price |
+| TransactionDate | Transaction date and time |
+| PaymentMethod | Payment method |
+| StoreLocation | Store/location information |
+| ProductCategory | Product category |
+| DiscountApplied(%) | Discount percentage |
+| TotalAmount | Transaction revenue |
 
-## Key SQL Techniques
+The original dataset is not redistributed in this repository. See [`data/README.md`](data/README.md) for the source and reproduction instructions.
 
-The project uses:
+---
 
-- Aggregations with `SUM()`, `COUNT()`, and `AVG()`
-- `GROUP BY` for customer, category, daily, and monthly analysis
-- `CASE` statements for customer and discount segmentation
-- `COUNT(DISTINCT ...)` for customer-level metrics
-- `LAG()` for month-over-month growth analysis
-- `ROW_NUMBER()` for purchase sequencing
-- `DATEDIFF()` for customer return timing
-- Common Table Expressions (`WITH`) for multi-step analysis
-- Conditional aggregation for retention metrics
+# Analytical Approach
 
-## Key Findings
-
-### Revenue & Growth
-
-- Total revenue: approximately **$24.83M**
-- Total transactions: **100,000**
-- February 2024 revenue declined **7.29% MoM**
-- The decline was primarily associated with lower transactions, customers, and units.
-
-### Customer Retention
-
-- **95.15%** of customers made only one purchase.
-- **4.85%** of customers made multiple purchases.
-- Average time to second purchase was approximately **121 days**.
-
-### Category Performance
-
-Revenue was highly balanced across the four categories:
-
-- Books: **25.20%**
-- Clothing: **24.99%**
-- Electronics: **24.95%**
-- Home Decor: **24.86%**
-
-### Demand
-
-Daily and monthly demand summaries created through SQL were used as the foundation for the Python time-series analysis and forecasting.
-
-## SQL → Python Workflow
-
-The SQL workflow prepares and analyzes the transactional data before the forecasting stage:
+The project follows an end-to-end workflow:
 
 ```text
-Raw Transactions
-       ↓
-Data Validation
-       ↓
-Business KPIs
-       ↓
+Raw Transaction Data
+        ↓
+Data Validation & Preparation
+        ↓
+MySQL Business Analysis
+        ↓
 Growth & Retention Analysis
-       ↓
-Daily Demand Aggregation
-       ↓
-Python Time-Series Analysis
-       ↓
-Forecasting
+        ↓
+Statistical Analysis
+        ↓
+Daily Demand Time Series
+        ↓
+Anomaly Detection
+        ↓
+Forecast Model Comparison
+        ↓
+Power BI Dashboard
+        ↓
+Business Recommendations
